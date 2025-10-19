@@ -1859,3 +1859,414 @@ a:hover, a:active, a:focus {
     transform: none;
   }
 }
+
+/* ========== POR QUÉ ELEGIRNOS - VERSIÓN MEJORADA ========== */
+.why-us {
+  padding-top: 5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Efecto de fondo sutil con partículas */
+.why-us::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 15% 20%, rgba(231, 125, 66, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 85% 80%, rgba(231, 125, 66, 0.05) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.why-us .h2,
+.why-us .section-subtitle {
+  position: relative;
+  z-index: 1;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+  position: relative;
+  z-index: 1;
+}
+
+.feature-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 2.5rem;
+  box-shadow: 0 5px 20px rgba(45, 36, 31, 0.08);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid transparent;
+  cursor: pointer;
+}
+
+/* Efecto de destello al hacer hover */
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(231, 125, 66, 0.1), transparent);
+  transition: left 0.6s ease;
+}
+
+.feature-card:hover::before {
+  left: 100%;
+}
+
+.feature-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 15px 40px rgba(231, 125, 66, 0.2);
+  border-color: rgba(231, 125, 66, 0.3);
+}
+
+/* Badge que aparece al hacer hover */
+.feature-badge {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-press) 100%);
+  color: white;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  opacity: 0;
+  transform: scale(0) rotate(-12deg);
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  box-shadow: 0 4px 15px rgba(231, 125, 66, 0.4);
+}
+
+.feature-card:hover .feature-badge {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+
+/* Iconos mejorados */
+.feature-icon {
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(135deg, rgba(231, 125, 66, 0.1) 0%, rgba(231, 125, 66, 0.05) 100%);
+  color: var(--accent);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  font-weight: 900;
+  flex-shrink: 0;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+/* Borde animado alrededor del icono */
+.feature-icon::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 18px;
+  border: 2px solid var(--accent);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.feature-card:hover .feature-icon {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-press) 100%);
+  color: white;
+  transform: rotate(5deg) scale(1.1);
+  box-shadow: 0 8px 20px rgba(231, 125, 66, 0.4);
+}
+
+.feature-card:hover .feature-icon::before {
+  opacity: 1;
+  transform: scale(1.15);
+  animation: pulse-border 2s ease-in-out infinite;
+}
+
+@keyframes pulse-border {
+  0%, 100% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.25);
+    opacity: 0.5;
+  }
+}
+
+/* Efecto de rotación del checkmark */
+.feature-card:hover .feature-icon {
+  animation: icon-bounce 0.6s ease;
+}
+
+@keyframes icon-bounce {
+  0%, 100% {
+    transform: rotate(5deg) scale(1.1);
+  }
+  50% {
+    transform: rotate(365deg) scale(1.15);
+  }
+}
+
+.feature-content {
+  flex: 1;
+}
+
+.feature-card h3 {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--shell);
+  margin-bottom: 0.8rem;
+  transition: color 0.3s ease;
+}
+
+.feature-card:hover h3 {
+  color: var(--accent);
+}
+
+.feature-card p {
+  color: var(--muted);
+  line-height: 1.6;
+  font-size: 0.95rem;
+  transition: color 0.3s ease;
+}
+
+.feature-card:hover p {
+  color: var(--shell);
+}
+
+/* Punto pulsante para llamar la atención */
+.feature-pulse {
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  width: 12px;
+  height: 12px;
+  background: var(--accent);
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.feature-card:hover .feature-pulse {
+  opacity: 1;
+  animation: pulse-dot 1.5s infinite;
+}
+
+@keyframes pulse-dot {
+  0% {
+    box-shadow: 0 0 0 0 rgba(231, 125, 66, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 15px rgba(231, 125, 66, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(231, 125, 66, 0);
+  }
+}
+
+/* Animación de entrada escalonada */
+.feature-card {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.feature-card:nth-child(1) { animation-delay: 0.1s; }
+.feature-card:nth-child(2) { animation-delay: 0.2s; }
+.feature-card:nth-child(3) { animation-delay: 0.3s; }
+.feature-card:nth-child(4) { animation-delay: 0.4s; }
+.feature-card:nth-child(5) { animation-delay: 0.5s; }
+.feature-card:nth-child(6) { animation-delay: 0.6s; }
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Línea decorativa superior */
+.why-us::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  border-radius: 2px;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+  .why-us {
+    padding-top: 4rem;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .feature-card {
+    padding: 2rem;
+    flex-direction: row;
+  }
+
+  .feature-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+  }
+
+  .feature-card h3 {
+    font-size: 1.2rem;
+  }
+
+  .feature-card p {
+    font-size: 0.9rem;
+  }
+
+  .feature-badge {
+    font-size: 0.65rem;
+    padding: 0.35rem 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .feature-card {
+    padding: 1.8rem 1.5rem;
+    gap: 1.2rem;
+  }
+
+  .feature-icon {
+    width: 55px;
+    height: 55px;
+    font-size: 1.4rem;
+    border-radius: 14px;
+  }
+
+  .feature-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .feature-card p {
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+}
+
+/* Accesibilidad - respetar preferencias de movimiento reducido */
+@media (prefers-reduced-motion: reduce) {
+  .feature-card,
+  .feature-icon,
+  .feature-badge,
+  .feature-pulse {
+    animation: none !important;
+    transition: none !important;
+  }
+  
+  .feature-card:hover {
+    transform: none;
+  }
+  
+  .feature-card:hover .feature-icon {
+    transform: none;
+  }
+}
+
+/* ========== ESTILOS PARA ICONOS SVG EN "POR QUÉ ELEGIRNOS" ========== */
+.feature-svg {
+  width: 35px;
+  height: 35px;
+  object-fit: contain;
+  transition: all 0.3s ease;
+  filter: brightness(0) saturate(100%) invert(44%) sepia(65%) saturate(1352%) hue-rotate(345deg) brightness(91%) contrast(87%);
+}
+
+.feature-card:hover .feature-svg {
+  filter: brightness(0) invert(1);
+  transform: scale(1.1);
+}
+
+/* Ajustes para el contenedor del icono */
+.feature-icon {
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(135deg, rgba(231, 125, 66, 0.1) 0%, rgba(231, 125, 66, 0.05) 100%);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.feature-card:hover .feature-icon {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-press) 100%);
+  transform: rotate(5deg) scale(1.1);
+  box-shadow: 0 8px 20px rgba(231, 125, 66, 0.4);
+}
+
+/* Animación de rotación para los SVG */
+.feature-card:hover .feature-svg {
+  animation: icon-bounce-svg 0.6s ease;
+}
+
+@keyframes icon-bounce-svg {
+  0%, 100% {
+    transform: scale(1.1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+/* Responsive para los iconos SVG */
+@media (max-width: 768px) {
+  .feature-svg {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .feature-icon {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+@media (max-width: 480px) {
+  .feature-svg {
+    width: 25px;
+    height: 25px;
+  }
+  
+  .feature-icon {
+    width: 55px;
+    height: 55px;
+  }
+}

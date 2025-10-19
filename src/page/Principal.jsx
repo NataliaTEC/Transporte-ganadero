@@ -21,6 +21,14 @@ import PlanificacionIcon from "../assets/planificacion.svg";
 import TransporteProcesoIcon from "../assets/transporte-proceso.svg";
 import EntregaIcon from "../assets/entrega.svg";
 
+// Importar iconos para "Por Qué Elegirnos"
+import CoberturaIcon from "../assets/traslado.svg";
+import CertificacionesIcon from "../assets/certificaciones.svg";
+import FlotaIcon from "../assets/transporte-proceso.svg";
+import PersonalIcon from "../assets/personal.svg";
+import SeguroIcon from "../assets/seguro.svg";
+import AtencionIcon from "../assets/atencion.svg";
+
 // Componente para las métricas con auto-incremento
 const Counter = ({ end, suffix = "", duration = 2000, decimals = 0 }) => {
   const [count, setCount] = useState(0);
@@ -421,14 +429,18 @@ export default function Principal() {
         </div>
       </section>
 
-      {/* === POR QUÉ ELEGIRNOS === */}
+        
       <section className="why-us section">
         <h2 className="h2">Por Qué Elegirnos</h2>
         <p className="section-subtitle">Tu tranquilidad es nuestra prioridad</p>
         
         <div className="features-grid">
           <div className="feature-card">
-            <div className="feature-icon">✓</div>
+            <span className="feature-badge">100%</span>
+            <div className="feature-pulse"></div>
+            <div className="feature-icon">
+              <img src={CoberturaIcon} alt="Cobertura Nacional" className="feature-svg" />
+            </div>
             <div className="feature-content">
               <h3>Cobertura Nacional</h3>
               <p>Operamos en todo el territorio con rutas establecidas y socios locales confiables.</p>
@@ -436,7 +448,11 @@ export default function Principal() {
           </div>
           
           <div className="feature-card">
-            <div className="feature-icon">✓</div>
+            <span className="feature-badge">Certificado</span>
+            <div className="feature-pulse"></div>
+            <div className="feature-icon">
+              <img src={CertificacionesIcon} alt="Certificaciones" className="feature-svg" />
+            </div>
             <div className="feature-content">
               <h3>Certificaciones</h3>
               <p>Cumplimos con todas las normativas de transporte y bienestar animal vigentes.</p>
@@ -444,7 +460,11 @@ export default function Principal() {
           </div>
           
           <div className="feature-card">
-            <div className="feature-icon">✓</div>
+            <span className="feature-badge">Moderna</span>
+            <div className="feature-pulse"></div>
+            <div className="feature-icon">
+              <img src={FlotaIcon} alt="Flota Moderna" className="feature-svg" />
+            </div>
             <div className="feature-content">
               <h3>Flota Moderna</h3>
               <p>Vehículos especializados equipados con tecnología de punta para máximo confort.</p>
@@ -452,7 +472,11 @@ export default function Principal() {
           </div>
           
           <div className="feature-card">
-            <div className="feature-icon">✓</div>
+            <span className="feature-badge">Expertos</span>
+            <div className="feature-pulse"></div>
+            <div className="feature-icon">
+              <img src={PersonalIcon} alt="Personal Experto" className="feature-svg" />
+            </div>
             <div className="feature-content">
               <h3>Personal Experto</h3>
               <p>Conductores capacitados en manejo de ganado y protocolos de seguridad.</p>
@@ -460,7 +484,11 @@ export default function Principal() {
           </div>
           
           <div className="feature-card">
-            <div className="feature-icon">✓</div>
+            <span className="feature-badge">Seguro</span>
+            <div className="feature-pulse"></div>
+            <div className="feature-icon">
+              <img src={SeguroIcon} alt="Seguro Incluido" className="feature-svg" />
+            </div>
             <div className="feature-content">
               <h3>Seguro Incluido</h3>
               <p>Todos nuestros envíos están cubiertos por seguro de transporte de mercancía.</p>
@@ -468,7 +496,11 @@ export default function Principal() {
           </div>
           
           <div className="feature-card">
-            <div className="feature-icon">✓</div>
+            <span className="feature-badge">24/7</span>
+            <div className="feature-pulse"></div>
+            <div className="feature-icon">
+              <img src={AtencionIcon} alt="Atención 24/7" className="feature-svg" />
+            </div>
             <div className="feature-content">
               <h3>Atención 24/7</h3>
               <p>Soporte constante y seguimiento en tiempo real durante todo el trayecto.</p>
