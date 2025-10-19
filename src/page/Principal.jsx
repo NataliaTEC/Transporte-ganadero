@@ -15,6 +15,11 @@ import EmpleadosIcon from "../assets/empleados.svg";
 import TrasladoIcon from "../assets/traslado.svg";
 import ExperienciaIcon from "../assets/experiencia.svg";
 
+// Importar iconos para el proceso
+import CotizacionIcon from "../assets/cotizacion.svg";
+import PlanificacionIcon from "../assets/planificacion.svg";
+import TransporteProcesoIcon from "../assets/transporte-proceso.svg";
+import EntregaIcon from "../assets/entrega.svg";
 
 // Componente para las métricas con auto-incremento
 const Counter = ({ end, suffix = "", duration = 2000, decimals = 0 }) => {
@@ -75,6 +80,68 @@ export default function Principal() {
       [cardId]: !prev[cardId]
     }));
   };
+
+  // useEffect para la interactividad de las tarjetas de proceso
+  useEffect(() => {
+    const stepCards = document.querySelectorAll('.step-card-modern');
+    
+    const handleClick = (card) => {
+      stepCards.forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+      card.classList.toggle('completed');
+    };
+
+    const handleMouseEnter = (card) => {
+      card.classList.add('floating');
+    };
+
+    const handleMouseLeave = (card) => {
+      card.classList.remove('floating');
+    };
+
+    stepCards.forEach(card => {
+      const clickHandler = () => handleClick(card);
+      const enterHandler = () => handleMouseEnter(card);
+      const leaveHandler = () => handleMouseLeave(card);
+
+      card.addEventListener('click', clickHandler);
+      card.addEventListener('mouseenter', enterHandler);
+      card.addEventListener('mouseleave', leaveHandler);
+
+      // Cleanup
+      card._cleanup = () => {
+        card.removeEventListener('click', clickHandler);
+        card.removeEventListener('mouseenter', enterHandler);
+        card.removeEventListener('mouseleave', leaveHandler);
+      };
+    });
+
+    // Intersection Observer para animaciones de entrada
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -100px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    stepCards.forEach(card => {
+      observer.observe(card);
+    });
+
+    return () => {
+      stepCards.forEach(card => {
+        if (card._cleanup) card._cleanup();
+      });
+      observer.disconnect();
+    };
+  }, []);
 
   return (
     <main className="home">
@@ -262,32 +329,51 @@ export default function Principal() {
         </div>
       </section>
 
-      {/* === PROCESO === */}
-      <section className="process section">
+      {/* === PROCESO INTERACTIVO === */}
+      <section className="process-interactive section">
         <h2 className="h2">Cómo Funciona</h2>
         <p className="section-subtitle">Proceso simple y transparente</p>
         
-        <div className="process-timeline">
-          <div className="process-step">
-            <div className="step-number">1</div>
+        <div className="steps-container-modern">
+          <div className="step-card-modern" data-step="1">
+            <div className="step-checkmark">✓</div>
+            <div className="step-icon">
+              <img src={CotizacionIcon} alt="Solicita Cotización" className="step-svg" />
+            </div>
+            <div className="step-number-modern">1</div>
             <h3>Solicita Cotización</h3>
             <p>Completa el formulario con los detalles de tu envío y recibe una cotización inmediata.</p>
+            <div className="step-connector"></div>
           </div>
-          
-          <div className="process-step">
-            <div className="step-number">2</div>
+
+          <div className="step-card-modern" data-step="2">
+            <div className="step-checkmark">✓</div>
+            <div className="step-icon">
+              <img src={PlanificacionIcon} alt="Planificación" className="step-svg" />
+            </div>
+            <div className="step-number-modern">2</div>
             <h3>Planificación</h3>
             <p>Nuestro equipo diseña la ruta óptima y coordina todos los detalles del transporte.</p>
+            <div className="step-connector"></div>
           </div>
-          
-          <div className="process-step">
-            <div className="step-number">3</div>
+
+          <div className="step-card-modern" data-step="3">
+            <div className="step-checkmark">✓</div>
+            <div className="step-icon">
+              <img src={TransporteProcesoIcon} alt="Transporte" className="step-svg" />
+            </div>
+            <div className="step-number-modern">3</div>
             <h3>Transporte</h3>
             <p>Recogemos tu ganado y lo transportamos con seguimiento GPS en tiempo real.</p>
+            <div className="step-connector"></div>
           </div>
-          
-          <div className="process-step">
-            <div className="step-number">4</div>
+
+          <div className="step-card-modern" data-step="4">
+            <div className="step-checkmark">✓</div>
+            <div className="step-icon">
+              <img src={EntregaIcon} alt="Entrega" className="step-svg" />
+            </div>
+            <div className="step-number-modern">4</div>
             <h3>Entrega</h3>
             <p>Entrega segura en destino con documentación completa y confirmación.</p>
           </div>

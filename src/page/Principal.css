@@ -462,53 +462,399 @@ main, .home {
   margin-top: 0.5rem;
 }
 
-/* ========== PROCESO ========== */
-.process {
-  background: linear-gradient(135deg, #fff9f0 0%, #f5f0e6 100%);
+/* ========== PROCESO INTERACTIVO ========== */
+.process-interactive {
+  background: linear-gradient(135deg, #f5f0e6 0%, #efe9dd 100%);
   border-radius: 30px;
-  padding: 4rem 2rem;
-  margin-top: 3rem;
+  padding: 5rem 2rem;
+  margin-top: 4rem;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid #eee3d3;
 }
 
-.process-timeline {
+.process-interactive::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent) 0%, var(--accent-press) 100%);
+}
+
+.process-interactive .h2 {
+  color: var(--shell);
+  text-shadow: none;
+}
+
+.process-interactive .section-subtitle {
+  color: var(--muted);
+}
+
+.steps-container-modern {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 2rem;
   margin-top: 3rem;
   position: relative;
 }
 
-.process-step {
+.step-card-modern {
+  background: white;
+  border-radius: 20px;
+  padding: 2.5rem 2rem;
   text-align: center;
   position: relative;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 10px 30px rgba(45, 36, 31, 0.1);
+  border: 2px solid #f8f4ec;
+  opacity: 0;
+  transform: translateY(30px);
 }
 
-.step-number {
-  width: 60px;
-  height: 60px;
-  background: var(--accent);
-  color: #fff;
+.step-card-modern:nth-child(1) { transition-delay: 0.1s; }
+.step-card-modern:nth-child(2) { transition-delay: 0.2s; }
+.step-card-modern:nth-child(3) { transition-delay: 0.3s; }
+.step-card-modern:nth-child(4) { transition-delay: 0.4s; }
+
+.step-card-modern:hover {
+  transform: translateY(-15px) scale(1.05);
+  box-shadow: 0 20px 50px rgba(45, 36, 31, 0.15);
+  border-color: var(--accent);
+}
+
+.step-card-modern.active {
+  transform: translateY(-10px) scale(1.03);
+  box-shadow: 0 15px 40px rgba(45, 36, 31, 0.12);
+  border-color: var(--accent);
+}
+
+.step-number-modern {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-press) 100%);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
-  font-weight: 900;
   margin: 0 auto 1.5rem;
-  box-shadow: 0 6px 20px rgba(231, 125, 66, 0.3);
+  font-size: 2rem;
+  font-weight: 900;
+  color: white;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(231, 125, 66, 0.4);
+  position: relative;
 }
 
-.process-step h3 {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: var(--shell);
-  margin-bottom: 0.8rem;
+.step-card-modern:hover .step-number-modern {
+  transform: rotate(360deg) scale(1.1);
+  box-shadow: 0 8px 25px rgba(231, 125, 66, 0.6);
 }
 
-.process-step p {
+.step-number-modern::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top-color: var(--accent);
+  border-right-color: var(--accent-press);
+  animation: spin-border 3s linear infinite;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.step-card-modern:hover .step-number-modern::before {
+  opacity: 1;
+}
+
+@keyframes spin-border {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* TÍTULOS DE LAS TARJETAS CON EL MISMO COLOR QUE EL TÍTULO PRINCIPAL */
+.step-card-modern h3 {
+  color: var(--shell); /* MISMO COLOR QUE .h2 */
+  font-size: 1.4rem;
+  font-weight: 900; /* MISMO PESO QUE .h2 */
+  margin-bottom: 1rem;
+  transition: color 0.3s ease;
+  font-family: "Poppins", sans-serif;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.step-card-modern:hover h3 {
+  color: var(--accent);
+}
+
+.step-card-modern p {
   color: var(--muted);
-  line-height: 1.5;
+  line-height: 1.6;
   font-size: 0.95rem;
+}
+
+.step-checkmark {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 35px;
+  height: 35px;
+  background: #4CAF50;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 900;
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
+}
+
+.step-card-modern.completed .step-checkmark {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.floating {
+  animation: floating-motion 3s ease-in-out infinite;
+}
+
+@keyframes floating-motion {
+  0%, 100% { 
+    transform: translateY(-15px) scale(1.05);
+  }
+  50% { 
+    transform: translateY(-25px) scale(1.05);
+  }
+}
+
+/* Conectores entre tarjetas (solo en desktop) */
+.step-connector {
+  display: none;
+  position: absolute;
+  top: 40px;
+  right: -2rem;
+  width: 2rem;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent) 0%, rgba(231, 125, 66, 0.3) 100%);
+  z-index: -1;
+  border-radius: 2px;
+}
+
+@media (min-width: 1024px) {
+  .step-connector {
+    display: block;
+  }
+  
+  .step-card-modern:last-child .step-connector {
+    display: none;
+  }
+}
+
+/* Efecto de pulso para llamar la atención */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 10px 30px rgba(45, 36, 31, 0.1);
+  }
+  50% {
+    box-shadow: 0 10px 40px rgba(231, 125, 66, 0.3);
+  }
+}
+
+.step-card-modern:nth-child(1) {
+  animation: pulse-glow 3s ease-in-out infinite;
+  animation-delay: 0s;
+}
+
+/* Efecto de partículas de fondo */
+.process-interactive::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(231, 125, 66, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(45, 36, 31, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 40% 80%, rgba(231, 125, 66, 0.08) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.steps-container-modern {
+  position: relative;
+  z-index: 1;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 1024px) {
+  .steps-container-modern {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .process-interactive {
+    padding: 4rem 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .steps-container-modern {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .step-card-modern {
+    padding: 2rem 1.5rem;
+  }
+
+  .step-number-modern {
+    width: 70px;
+    height: 70px;
+    font-size: 1.8rem;
+    margin-bottom: 1.2rem;
+  }
+
+  /* Títulos responsive */
+  .step-card-modern h3 {
+    font-size: 1.3rem;
+    font-weight: 900;
+  }
+
+  .step-card-modern p {
+    font-size: 0.9rem;
+  }
+
+  .step-emoji {
+    font-size: 1.5rem;
+    top: 15px;
+    right: 15px;
+  }
+
+  .step-checkmark {
+    width: 30px;
+    height: 30px;
+    font-size: 1rem;
+    top: 12px;
+    right: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .process-interactive {
+    padding: 3rem 1rem;
+    border-radius: 20px;
+  }
+
+  .step-card-modern {
+    padding: 1.8rem 1.2rem;
+  }
+
+  .step-number-modern {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  /* Títulos en móvil */
+  .step-card-modern h3 {
+    font-size: 1.2rem;
+    font-weight: 900;
+    margin-bottom: 0.8rem;
+  }
+
+  .step-card-modern p {
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+}
+
+/* ========== ICONOS SVG PARA EL PROCESO ========== */
+.step-icon {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  opacity: 0;
+  transition: all 0.3s ease;
+  transform: rotate(-45deg);
+  filter: grayscale(1) brightness(0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.step-svg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: all 0.3s ease;
+}
+
+.step-card-modern:hover .step-icon {
+  opacity: 0.3;
+  transform: rotate(0deg);
+  filter: grayscale(0) brightness(1);
+}
+
+.step-card-modern:hover .step-svg {
+  transform: scale(1.1);
+  filter: drop-shadow(0 2px 8px rgba(231, 125, 66, 0.4));
+}
+
+/* Estados activos y completados */
+.step-card-modern.active .step-icon,
+.step-card-modern.completed .step-icon {
+  opacity: 0.4;
+  transform: rotate(0deg);
+  filter: grayscale(0) brightness(0.9);
+}
+
+/* Ajustes responsive para iconos del proceso */
+@media (max-width: 768px) {
+  .step-icon {
+    width: 40px;
+    height: 40px;
+    top: 15px;
+    right: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .step-icon {
+    width: 35px;
+    height: 35px;
+    top: 12px;
+    right: 12px;
+  }
+}
+
+/* Accesibilidad - respetar preferencias de movimiento reducido */
+@media (prefers-reduced-motion: reduce) {
+  .step-card-modern,
+  .step-number-modern,
+  .floating {
+    animation: none !important;
+    transition: none !important;
+  }
+  
+  .step-card-modern:hover {
+    transform: none;
+  }
 }
 
 /* ========== MÉTRICAS ========== */
@@ -1169,4 +1515,347 @@ a:hover, a:active, a:focus {
 /* Pausar video cuando la tarjeta está volteada */
 .service-card-flip.flipped .card-video {
   opacity: 0.3;
+}
+
+/* ========== PROCESO INTERACTIVO ========== */
+.process-interactive {
+  background: linear-gradient(135deg, #f5f0e6 0%, #efe9dd 100%);
+  border-radius: 30px;
+  padding: 5rem 2rem;
+  margin-top: 4rem;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid #eee3d3;
+}
+
+.process-interactive::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent) 0%, var(--accent-press) 100%);
+}
+
+.process-interactive .h2 {
+  color: var(--shell);
+  text-shadow: none;
+}
+
+.process-interactive .section-subtitle {
+  color: var(--muted);
+}
+
+.steps-container-modern {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+  position: relative;
+}
+
+.step-card-modern {
+  background: white;
+  border-radius: 20px;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 10px 30px rgba(45, 36, 31, 0.1);
+  border: 2px solid #f8f4ec;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.step-card-modern:nth-child(1) { transition-delay: 0.1s; }
+.step-card-modern:nth-child(2) { transition-delay: 0.2s; }
+.step-card-modern:nth-child(3) { transition-delay: 0.3s; }
+.step-card-modern:nth-child(4) { transition-delay: 0.4s; }
+
+.step-card-modern:hover {
+  transform: translateY(-15px) scale(1.05);
+  box-shadow: 0 20px 50px rgba(45, 36, 31, 0.15);
+  border-color: var(--accent);
+}
+
+.step-card-modern.active {
+  transform: translateY(-10px) scale(1.03);
+  box-shadow: 0 15px 40px rgba(45, 36, 31, 0.12);
+  border-color: var(--accent);
+}
+
+.step-number-modern {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-press) 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  font-size: 2rem;
+  font-weight: 900;
+  color: white;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(231, 125, 66, 0.4);
+  position: relative;
+}
+
+.step-card-modern:hover .step-number-modern {
+  transform: rotate(360deg) scale(1.1);
+  box-shadow: 0 8px 25px rgba(231, 125, 66, 0.6);
+}
+
+.step-number-modern::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top-color: var(--accent);
+  border-right-color: var(--accent-press);
+  animation: spin-border 3s linear infinite;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.step-card-modern:hover .step-number-modern::before {
+  opacity: 1;
+}
+
+@keyframes spin-border {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.step-card-modern h3 {
+  color: var(--shell);
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  transition: color 0.3s ease;
+}
+
+.step-card-modern:hover h3 {
+  color: var(--accent);
+}
+
+.step-card-modern p {
+  color: var(--muted);
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.step-emoji {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 1.8rem;
+  opacity: 0;
+  transition: all 0.3s ease;
+  transform: rotate(-45deg);
+  filter: grayscale(1);
+}
+
+.step-card-modern:hover .step-emoji {
+  opacity: 0.3;
+  transform: rotate(0deg);
+  filter: grayscale(0);
+}
+
+.step-checkmark {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 35px;
+  height: 35px;
+  background: #4CAF50;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 900;
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
+}
+
+.step-card-modern.completed .step-checkmark {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.floating {
+  animation: floating-motion 3s ease-in-out infinite;
+}
+
+@keyframes floating-motion {
+  0%, 100% { 
+    transform: translateY(-15px) scale(1.05);
+  }
+  50% { 
+    transform: translateY(-25px) scale(1.05);
+  }
+}
+
+/* Conectores entre tarjetas (solo en desktop) */
+.step-connector {
+  display: none;
+  position: absolute;
+  top: 40px;
+  right: -2rem;
+  width: 2rem;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent) 0%, rgba(231, 125, 66, 0.3) 100%);
+  z-index: -1;
+  border-radius: 2px;
+}
+
+@media (min-width: 1024px) {
+  .step-connector {
+    display: block;
+  }
+  
+  .step-card-modern:last-child .step-connector {
+    display: none;
+  }
+}
+
+/* Efecto de pulso para llamar la atención */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 10px 30px rgba(45, 36, 31, 0.1);
+  }
+  50% {
+    box-shadow: 0 10px 40px rgba(231, 125, 66, 0.3);
+  }
+}
+
+.step-card-modern:nth-child(1) {
+  animation: pulse-glow 3s ease-in-out infinite;
+  animation-delay: 0s;
+}
+
+/* Efecto de partículas de fondo */
+.process-interactive::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(231, 125, 66, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(45, 36, 31, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 40% 80%, rgba(231, 125, 66, 0.08) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.steps-container-modern {
+  position: relative;
+  z-index: 1;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 1024px) {
+  .steps-container-modern {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .process-interactive {
+    padding: 4rem 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .steps-container-modern {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .step-card-modern {
+    padding: 2rem 1.5rem;
+  }
+
+  .step-number-modern {
+    width: 70px;
+    height: 70px;
+    font-size: 1.8rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .step-card-modern h3 {
+    font-size: 1.2rem;
+  }
+
+  .step-card-modern p {
+    font-size: 0.9rem;
+  }
+
+  .step-emoji {
+    font-size: 1.5rem;
+    top: 15px;
+    right: 15px;
+  }
+
+  .step-checkmark {
+    width: 30px;
+    height: 30px;
+    font-size: 1rem;
+    top: 12px;
+    right: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .process-interactive {
+    padding: 3rem 1rem;
+    border-radius: 20px;
+  }
+
+  .step-card-modern {
+    padding: 1.8rem 1.2rem;
+  }
+
+  .step-number-modern {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .step-card-modern h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .step-card-modern p {
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+}
+
+/* Accesibilidad - respetar preferencias de movimiento reducido */
+@media (prefers-reduced-motion: reduce) {
+  .step-card-modern,
+  .step-number-modern,
+  .floating {
+    animation: none !important;
+    transition: none !important;
+  }
+  
+  .step-card-modern:hover {
+    transform: none;
+  }
 }
