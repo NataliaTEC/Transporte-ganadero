@@ -400,7 +400,7 @@ export default function Principal() {
             <a className="btn-primary-large" href="/contacto">
               Solicitar Cotización
             </a>
-            <a className="btn-outline" href="tel:+506123456789">
+            <a className="btn-outline" href="tel:+50687373291">
               📞 Llamar Ahora
             </a>
           </div>
