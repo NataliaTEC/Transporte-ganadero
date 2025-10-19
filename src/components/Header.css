@@ -1,7 +1,7 @@
 /* ====== Variables y reset pequeño ====== */
 :root{
   --bg: #efe9dd;                 /* beige del fondo general */
-  --shell: #2d241f;              /* marrón oscuro del header */
+  --shell: #3d2f28;              /* marrón oscuro del header */
   --shell-contrast: #f5f0e6;
   --accent: #C27B3F;             /* Naranja Quemado / Terracota actualizado */
   --accent-press: #A86935;       /* Versión más oscura para estados activos */
