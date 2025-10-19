@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import "./Principal.css";
 import heroImg from "../assets/foto1.jpg";
 import camionVideo from "../assets/Camion.mp4";
@@ -9,6 +9,62 @@ import GPSVideo from "../assets/Gps.mp4";
 import TransporteIcon from "../assets/transporte.svg";
 import GpsIcon from "../assets/monitoreo.svg";
 import BienestarIcon from "../assets/bienestar.svg";
+
+// Importar iconos para las métricas
+import EmpleadosIcon from "../assets/empleados.svg";
+import TrasladoIcon from "../assets/traslado.svg";
+import ExperienciaIcon from "../assets/experiencia.svg";
+
+
+// Componente para las métricas con auto-incremento
+const Counter = ({ end, suffix = "", duration = 2000, decimals = 0 }) => {
+  const [count, setCount] = useState(0);
+  const ref = useRef(null);
+  const hasAnimated = useRef(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasAnimated.current) {
+          hasAnimated.current = true;
+          
+          let start = 0;
+          const increment = end / (duration / 16); // 60fps
+          const timer = setInterval(() => {
+            start += increment;
+            if (start >= end) {
+              setCount(end);
+              clearInterval(timer);
+            } else {
+              setCount(Math.floor(start));
+            }
+          }, 16);
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => observer.disconnect();
+  }, [end, duration]);
+
+  // Formatear números con separadores de miles
+  const formatNumber = (num) => {
+    if (decimals > 0) {
+      return num.toFixed(decimals).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
+
+  return (
+    <span ref={ref} className="counter">
+      {formatNumber(count)}{suffix}
+    </span>
+  );
+};
 
 export default function Principal() {
   const [flippedCards, setFlippedCards] = useState({});
@@ -238,24 +294,43 @@ export default function Principal() {
         </div>
       </section>
 
-      {/* === MÉTRICAS === */}
-      <section className="stats-wrap">
-        <div className="stats container">
-          <div className="stat">
-            <span className="kpi">3417+</span>
-            <span className="lbl">Traslados Realizados</span>
+      {/* === MÉTRICAS MODERNAS === */}
+      <section className="metrics-modern">
+        <div className="metrics-container">
+          <div className="metric-card">
+            <div className="metric-icon">
+              <img src={EmpleadosIcon} alt="EMPLEADOS" className="metric-svg" />
+            </div>
+            <div className="metric-content">
+              <div className="metric-number">
+                +<Counter end={150} duration={2500} />
+              </div>
+              <div className="metric-label">EMPLEADOS</div>
+            </div>
           </div>
-          <div className="stat">
-            <span className="kpi">95%</span>
-            <span className="lbl">Satisfacción del Cliente</span>
+
+          <div className="metric-card">
+            <div className="metric-icon">
+              <img src={TrasladoIcon} alt="TRASLADOS REALIZADOS" className="metric-svg" />
+            </div>
+            <div className="metric-content">
+              <div className="metric-number">
+                +<Counter end={3417} duration={2500} />
+              </div>
+              <div className="metric-label">TRASLADOS REALIZADOS</div>
+            </div>
           </div>
-          <div className="stat">
-            <span className="kpi">24/7</span>
-            <span className="lbl">Monitoreo Continuo</span>
-          </div>
-          <div className="stat">
-            <span className="kpi">15+</span>
-            <span className="lbl">Años de Experiencia</span>
+
+          <div className="metric-card">
+            <div className="metric-icon">
+              <img src={ExperienciaIcon} alt="AÑOS DE EXPERIENCIA" className="metric-svg" />
+            </div>
+            <div className="metric-content">
+              <div className="metric-number">
+                +<Counter end={15} duration={2500} />
+              </div>
+              <div className="metric-label">AÑOS DE EXPERIENCIA</div>
+            </div>
           </div>
         </div>
       </section>
